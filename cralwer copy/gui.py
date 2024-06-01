@@ -1,13 +1,12 @@
+# gui.py
+
 import tkinter as tk
 from tkinter import ttk
-from bunjang_crawler import BunjangCrawler
-from joonggonara_crawler import JoongonaraCrawler
+import requests
 
 class SearchApp:
     def __init__(self, master):
         self.master = master
-        self.joongonara_crawler = JoongonaraCrawler()
-        self.bunjang_crawler = BunjangCrawler()
         
         master.title("중고거래 도우미")
 
@@ -28,22 +27,25 @@ class SearchApp:
         self.result_text.delete('1.0', tk.END)
         self.result_text.insert(tk.END, "검색 중...\n")
 
-        self.master.after(100, self.update_results, keyword)
+        response = requests.post('http://127.0.0.1:5000/search', data={'keyword': keyword})
+        data = response.json()
 
-    def update_results(self, keyword):
-        results_joongonara = self.joongonara_crawler.crawl(keyword)
-        results_bunjang = self.bunjang_crawler.crawl(keyword)
-        
         self.result_text.delete('1.0', tk.END)
+        self.result_text.insert(tk.END, f"검색어: {data['keyword']}\n\n")
+        
         self.result_text.insert(tk.END, "중고나라 결과:\n")
-        for title, price in results_joongonara:
-            self.result_text.insert(tk.END, f"{title} - {price}\n")
+        if data['results_joongonara']:
+            for title, price in data['results_joongonara']:
+                self.result_text.insert(tk.END, f"{title} - {price}\n")
+        else:
+            self.result_text.insert(tk.END, "검색 결과가 없습니다.\n")
         
         self.result_text.insert(tk.END, "\n번개장터 결과:\n")
-        for title, price in results_bunjang:
-            self.result_text.insert(tk.END, f"{title} - {price}\n")
+        if data['results_bunjang']:
+            for title, price in data['results_bunjang']:
+                self.result_text.insert(tk.END, f"{title} - {price}\n")
+        else:
+            self.result_text.insert(tk.END, "검색 결과가 없습니다.\n")
 
     def on_closing(self):
-        self.joongonara_crawler.close()
-        self.bunjang_crawler.close()
         self.master.destroy()
