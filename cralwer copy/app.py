@@ -1,6 +1,6 @@
 # app.py
 
-from flask import Flask, render_template, request
+from flask import Flask, jsonify, request
 from bunjang_crawler import BunjangCrawler
 from joonggonara_crawler import JoongonaraCrawler
 import threading
@@ -23,7 +23,11 @@ def search():
     bunjang_crawler.close()
     joongonara_crawler.close()
 
-    return render_template('results.html', keyword=keyword, results_bunjang=results_bunjang, results_joongonara=results_joongonara)
+    return jsonify({
+        "keyword": keyword,
+        "results_bunjang": results_bunjang,
+        "results_joongonara": results_joongonara
+    })
 
 def run_flask():
     app.run(debug=True, use_reloader=False)

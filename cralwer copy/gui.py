@@ -35,15 +35,15 @@ class SearchApp:
         
         self.result_text.insert(tk.END, "중고나라 결과:\n")
         if data['results_joongonara']:
-            for title, price in data['results_joongonara']:
-                self.result_text.insert(tk.END, f"{title} - {price}\n")
+            for idx, (title, price, link) in enumerate(data['results_joongonara'], start=1):
+                self.result_text.insert(tk.END, f"{idx}. 가격: {price}, 링크: {link}\n")
         else:
             self.result_text.insert(tk.END, "검색 결과가 없습니다.\n")
         
         self.result_text.insert(tk.END, "\n번개장터 결과:\n")
         if data['results_bunjang']:
-            for title, price in data['results_bunjang']:
-                self.result_text.insert(tk.END, f"{title} - {price}\n")
+            for idx, (title, price, link) in enumerate(data['results_bunjang'], start=1):
+                self.result_text.insert(tk.END, f"{idx}. 가격: {price}, 링크: {link}\n")
         else:
             self.result_text.insert(tk.END, "검색 결과가 없습니다.\n")
 

@@ -1,9 +1,4 @@
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.common.by import By
-from webdriver_manager.chrome import ChromeDriverManager
-from bs4 import BeautifulSoup
-import csv
+# joongonara_crawler.py
 
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -23,10 +18,20 @@ class JoongonaraCrawler:
 
         soup = BeautifulSoup(self.driver.page_source, 'html.parser')
         items = []
-        for item in soup.find_all('div', class_='item-info'):
-            title = item.find('p', class_='item-title').get_text(strip=True)
-            price = item.find('p', class_='item-price').get_text(strip=True)
-            items.append((title, price))
+        print(f"Crawling URL: {url}")  # URL 출력
+        print(f"Page title: {self.driver.title}")  # 페이지 타이틀 출력
+
+        for item in soup.find_all('div', class_='relative'):
+            title_tag = item.find('div', class_='w-full overflow-hidden p-2 md:px-2.5 xl:px-4')
+            price_tag = item.find('div', class_='font-semibold space-s-2 mt-0.5 text-heading lg:text-lg lg:mt-1.5')
+            link_tag = item.find('a', class_='group box-border overflow-hidden flex rounded-md cursor-pointer pe-0 pb-2 lg:pb-3 flex-col items-start transition duration-200 ease-in-out transform bg-white')
+
+            if title_tag and price_tag and link_tag:
+                title = title_tag.get_text(strip=True)
+                price = price_tag.get_text(strip=True)
+                link = "https://web.joongna.com" + link_tag['href']
+                items.append((title, price, link))
+                print(f"Found item: {title} - {price} - {link}")  # 찾은 아이템 출력
 
         return items
 
