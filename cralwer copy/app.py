@@ -1,6 +1,4 @@
-# app.py
-
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from bunjang_crawler import BunjangCrawler
 from joonggonara_crawler import JoongonaraCrawler
 import threading

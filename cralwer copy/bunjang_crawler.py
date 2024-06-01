@@ -21,10 +21,10 @@ class BunjangCrawler:
         print(f"Crawling URL: {url}")  # URL 출력
         print(f"Page title: {self.driver.title}")  # 페이지 타이틀 출력
 
-        for item in soup.find_all('div', class_='sc-jXQZqI iKTuWV'):
+        for item in soup.find_all('div', class_='sc-dRFtgE fiuAK'):
             title_tag = item.find('div', class_='sc-iGPElx fgwaHx')
             price_tag = item.find('div', class_='sc-kasBVs dtWrBJ')
-            link_tag = item.find('a', class_='sc-dRFtgE fiuAK')
+            link_tag = item.find('a', class_='sc-clNaTc dELIPz')
 
             if title_tag and price_tag and link_tag:
                 title = title_tag.get_text(strip=True)
