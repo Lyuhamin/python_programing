@@ -7,28 +7,23 @@
 <body>
     <h1>검색 결과</h1>
     <p>검색어: {{ keyword }}</p>
-
     <h2>중고나라 결과</h2>
-    {% if results_joongonara %}
-        <ul>
-            {% for title, price in results_joongonara %}
-                <li>{{ title }} - {{ price }}</li>
-            {% endfor %}
-        </ul>
+    <ul>
+    {% for title, price, link in results_joongonara %}
+        <li><a href="{{ link }}">{{ title }}</a> - {{ price }}</li>
     {% else %}
         <p>검색 결과가 없습니다.</p>
-    {% endif %}
+    {% endfor %}
+    </ul>
 
     <h2>번개장터 결과</h2>
-    {% if results_bunjang %}
-        <ul>
-            {% for title, price in results_bunjang %}
-                <li>{{ title }} - {{ price }}</li>
-            {% endfor %}
-        </ul>
+    <ul>
+    {% for title, price, link in results_bunjang %}
+        <li><a href="{{ link }}">{{ title }}</a> - {{ price }}</li>
     {% else %}
         <p>검색 결과가 없습니다.</p>
-    {% endif %}
+    {% endfor %}
+    </ul>
 
     <a href="/">다시 검색</a>
 </body>
