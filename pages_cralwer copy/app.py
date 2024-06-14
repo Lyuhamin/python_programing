@@ -2,7 +2,6 @@ import threading
 from flask import Flask, render_template, request
 from hellomarket_crawler import HellomarketCrawler
 from joongonara_crawler import JoongonaraCrawler
-from danawa_crawler import DanawaCrawler
 from fruitfamily_crawler import FruitfamilyCrawler
 from tkinter import Tk, Label, Entry, Button, END
 
@@ -22,13 +21,11 @@ def search():
 
     hellomarket_crawler = HellomarketCrawler()
     joongonara_crawler = JoongonaraCrawler()
-    danawa_crawler = DanawaCrawler()
     fruitfamily_crawler = FruitfamilyCrawler()
 
 
     results_hellomarket = hellomarket_crawler.crawl(keyword)
     results_joongonara = joongonara_crawler.crawl(keyword)
-    results_danawa = danawa_crawler.crawl(keyword)
     results_fruitfamily = fruitfamily_crawler.crawl(keyword)
 
     hellomarket_crawler.close()
@@ -36,7 +33,6 @@ def search():
 
     filtered_results_hellomarket = [item for item in results_hellomarket if min_price <= int(item[1].replace(',', '').replace('원', '')) <= max_price]
     filtered_results_joongonara = [item for item in results_joongonara if min_price <= int(item[1].replace(',', '').replace('원', '')) <= max_price]
-    filtered_results_danawa = [item for item in results_danawa if min_price <= int(item[1].replace(',', '').replace('원', '')) <= max_price]
     filtered_results_fruitfamily = [item for item in results_fruitfamily if min_price <= int(item[1].replace(',', '').replace('원', '')) <= max_price]
 
 
@@ -45,7 +41,7 @@ def search():
                            results_hellomarket = filtered_results_hellomarket, 
                            results_joongonara = filtered_results_joongonara,
                            results_fruitfamily = filtered_results_fruitfamily,
-                           results_danawa = filtered_results_danawa
+                           
                            )
 
 def run_flask():

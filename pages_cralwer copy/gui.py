@@ -3,7 +3,6 @@ from tkinter import ttk
 from hellomarket_crawler import HellomarketCrawler
 from joongonara_crawler import JoongonaraCrawler
 from fruitfamily_crawler import FruitfamilyCrawler
-from danawa_crawler import DanawaCrawler
 
 class SearchApp:
     def __init__(self, master):
@@ -29,7 +28,6 @@ class SearchApp:
         self.results_joongonara = []
         self.results_hellomarket = []
         self.results_fruitfamily = []
-        self.results_danawa = []
 
     def search(self):
         keyword = self.entry.get()
@@ -39,17 +37,14 @@ class SearchApp:
         joongonara_crawler = JoongonaraCrawler()
         hellomarket_crawler = HellomarketCrawler()
         fruitfamily_crawler = FruitfamilyCrawler()
-        danawa_crawler = DanawaCrawler()
 
         self.results_joongonara = joongonara_crawler.crawl(keyword)
         self.results_hellomarket = hellomarket_crawler.crawl(keyword)
         self.results_fruitfamily = fruitfamily_crawler.crawl(keyword)
-        self.results_danawa = danawa_crawler.crawl(keyword)
 
         joongonara_crawler.close()
         hellomarket_crawler.close()
         fruitfamily_crawler.close()
-        danawa_crawler.close()
 
         self.display_results(keyword)
 
@@ -72,13 +67,6 @@ class SearchApp:
             self.result_text.insert(tk.END, "검색 결과가 없습니다.\n")
 
         self.result_text.insert(tk.END, "\n후루츠패밀리 결과:\n")
-        if self.results_fruitfamily:
-            for idx, (title, price) in enumerate(self.results_fruitfamily, start=1):
-                self.result_text.insert(tk.END, f"{idx}. 상품명: {title}, 가격: {price}\n")
-        else:
-            self.result_text.insert(tk.END, "검색 결과가 없습니다.\n")
-
-        self.result_text.insert(tk.END, "다나와 결과:\n")
         if self.results_fruitfamily:
             for idx, (title, price) in enumerate(self.results_fruitfamily, start=1):
                 self.result_text.insert(tk.END, f"{idx}. 상품명: {title}, 가격: {price}\n")

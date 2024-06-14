@@ -7,6 +7,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    
+    <div class="search-container">
+        <h1>중고거래 도우미</h1>
+        <form action="/search" method="post" class="search-form">
+            <label for="keyword">검색어:</label>
+            <input type="text" id="keyword" name="keyword" required class="search-input"><br>
+
+            <div class="price-range">
+                <label for="min_price">최소 가격:</label>
+                <input type="range" id="min_price" name="min_price" min="0" max="1000000" value="0" class="slider">
+                <span id="min_price_value" class="slider-value">0 원</span><br>
+
+                <label for="max_price">최대 가격:</label>
+                <input type="range" id="max_price" name="max_price" min="0" max="1000000" value="1000000" class="slider">
+                <span id="max_price_value" class="slider-value">1000000 원</span><br>
+            </div>
+
+            <button type="submit" class="search-button">검색</button>
+        </form>
+    </div>
+
+    <script>
+        // 슬라이더 값 업데이트 함수
+        function updateSliderValue() {
+            var minPriceSlider = document.getElementById('min_price');
+            var maxPriceSlider = document.getElementById('max_price');
+            var minPriceValue = document.getElementById('min_price_value');
+            var maxPriceValue = document.getElementById('max_price_value');
+
+            minPriceValue.textContent = `${minPriceSlider.value} 원`;
+            maxPriceValue.textContent = `${maxPriceSlider.value} 원`;
+        }
+
+        // 슬라이더 이벤트 리스너 추가
+        document.getElementById('min_price').addEventListener('input', updateSliderValue);
+        document.getElementById('max_price').addEventListener('input', updateSliderValue);
+    </script>
 </body>
 </html>
