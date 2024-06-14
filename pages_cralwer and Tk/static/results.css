@@ -10,6 +10,10 @@ h1 {
     text-align: center;
 }
 
+.price_btn {
+    margin-left: 10vh;
+}
+
 /* 각각의 결과 박스 스타일 */
 .result-box {
     border: 2px solid black;
