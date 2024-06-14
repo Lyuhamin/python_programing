@@ -8,10 +8,13 @@
 <body>
     <h1>검색 결과</h1>
 
+    <!-- 낮은 가격순 버튼 -->
+    <button type="button" class="price_btn" onclick="sortResults()">낮은 가격순</button>
+
     <div class="results-container">
         <div class="result-box">
             <h2>헬로마켓 결과</h2>
-            <ul>
+            <ul id="hellomarket-results">
                 {% for item in results_hellomarket %}
                 <li>
                     <img src="{{ item[3] }}" alt="{{ item[0] }}" width="100"><br>
@@ -28,7 +31,7 @@
 
         <div class="result-box">
             <h2>중고나라 결과</h2>
-            <ul>
+            <ul id="joongonara-results">
                 {% for item in results_joongonara %}
                 <li>
                     <img src="{{ item[3] }}" alt="{{ item[0] }}" width="100"><br>
@@ -45,7 +48,7 @@
 
         <div class="result-box">
             <h2>후르츠페밀리 결과</h2>
-            <ul>
+            <ul id="fruitfamily-results">
                 {% for item in results_fruitfamily %}
                 <li>
                     <img src="{{ item[3] }}" alt="{{ item[0] }}" width="100"><br>
@@ -60,6 +63,14 @@
             </ul>
         </div>
     </div>
+
+    <!-- 데이터를 JSON 형식으로 숨겨진 영역에 저장 -->
+    <div id="hellomarket-data" style="display: none;">{{ results_hellomarket|tojson }}</div>
+    <div id="joongonara-data" style="display: none;">{{ results_joongonara|tojson }}</div>
+    <div id="fruitfamily-data" style="display: none;">{{ results_fruitfamily|tojson }}</div>
+
+    <!-- 외부 JavaScript 파일 포함 -->
+    <script src="{{ url_for('static', filename='results.js') }}"></script>
 
 </body>
 </html>
