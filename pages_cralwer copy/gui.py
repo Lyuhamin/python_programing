@@ -54,22 +54,25 @@ class SearchApp:
 
         self.result_text.insert(tk.END, "중고나라 결과:\n")
         if self.results_joongonara:
-            for idx, (title, price) in enumerate(self.results_joongonara, start=1):
-                self.result_text.insert(tk.END, f"{idx}. 상품명: {title}, 가격: {price}\n")
+            # (title, price, link, image_url) 형태로 언패킹합니다.
+            for idx, (title, price, link, image_url) in enumerate(self.results_joongonara, start=1):
+                self.result_text.insert(tk.END, f"{idx}. 상품명: {title}, 가격: {price}\n링크: {link}\n\n")
         else:
             self.result_text.insert(tk.END, "검색 결과가 없습니다.\n")
 
         self.result_text.insert(tk.END, "\n헬로마켓 결과:\n")
         if self.results_hellomarket:
-            for idx, (title, price) in enumerate(self.results_hellomarket, start=1):
-                self.result_text.insert(tk.END, f"{idx}. 상품명: {title}, 가격: {price}\n")
+            # (title, price, link, image_url) 형태로 언패킹합니다.
+            for idx, (title, price, link, image_url) in enumerate(self.results_hellomarket, start=1):
+                self.result_text.insert(tk.END, f"{idx}. 상품명: {title}, 가격: {price}\n링크: {link}\n\n")
         else:
             self.result_text.insert(tk.END, "검색 결과가 없습니다.\n")
 
         self.result_text.insert(tk.END, "\n후루츠패밀리 결과:\n")
         if self.results_fruitfamily:
-            for idx, (title, price) in enumerate(self.results_fruitfamily, start=1):
-                self.result_text.insert(tk.END, f"{idx}. 상품명: {title}, 가격: {price}\n")
+            # (title, price, link, image_url) 형태로 언패킹합니다.
+            for idx, (title, price, link, image_url) in enumerate(self.results_fruitfamily, start=1):
+                self.result_text.insert(tk.END, f"{idx}. 상품명: {title}, 가격: {price}\n링크: {link}\n\n")
         else:
             self.result_text.insert(tk.END, "검색 결과가 없습니다.\n")
 
@@ -78,17 +81,24 @@ class SearchApp:
             # 가격 문자열에서 숫자만 추출하고 정수로 변환합니다.
             return int(''.join(filter(str.isdigit, price_str)))
 
+        # 모든 결과를 결합합니다. 각 결과는 (title, price, link, image_url) 형태입니다.
         combined_results = self.results_joongonara + self.results_hellomarket + self.results_fruitfamily
-        sorted_results = sorted(combined_results, key=lambda x: parse_price(x[1]))  # 가격순으로 정렬
+        # 가격순으로 정렬합니다.
+        sorted_results = sorted(combined_results, key=lambda x: parse_price(x[1]))
 
         self.result_text.delete('1.0', tk.END)
         self.result_text.insert(tk.END, "검색 결과 (낮은 가격순):\n\n")
 
         if sorted_results:
-            for idx, (title, price) in enumerate(sorted_results, start=1):
-                self.result_text.insert(tk.END, f"{idx}. 상품명: {title}, 가격: {price}\n")
+            for idx, (title, price, link, image_url) in enumerate(sorted_results, start=1):
+                self.result_text.insert(tk.END, f"{idx}. 상품명: {title}, 가격: {price}\n링크: {link}\n\n")
         else:
             self.result_text.insert(tk.END, "검색 결과가 없습니다.\n")
 
     def on_closing(self):
         self.master.destroy()
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = SearchApp(root)
+    root.mainloop()
