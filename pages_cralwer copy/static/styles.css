@@ -1,0 +1,102 @@
+
+/* 전체 검색 컨테이너 스타일 */
+.search-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+/* 폼 스타일 */
+.search-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 검색어 입력 스타일 */
+.search-input {
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* 가격 범위 컨테이너 스타일 */
+.price-range {
+    width: 80%;
+    text-align: left;
+}
+
+/* 슬라이더 스타일 */
+.slider {
+    width: 100%;
+    margin: 5px 0;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 8px;
+    background: #ddd;
+    outline: none;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #007bff;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #007bff;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.slider:hover {
+    background: #ccc;
+}
+
+.slider-value {
+    font-size: 16px;
+    color: #555;
+}
+
+/* 버튼 스타일 */
+.search-button {
+    width: 50%;
+    padding: 10px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.search-button:hover {
+    background-color: #0056b3;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .search-input, .price-range, .search-button {
+        width: 100%;
+    }
+}

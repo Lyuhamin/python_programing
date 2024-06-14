@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>중고 크롤링</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='results.css') }}">
+</head>
+<body>
+    <h1>검색 결과</h1>
+
+    <div class="results-container">
+        <div class="result-box">
+            <h2>헬로마켓 결과</h2>
+            <ul>
+                {% for item in results_hellomarket %}
+                <li>
+                    <img src="{{ item[3] }}" alt="{{ item[0] }}" width="100"><br>
+                    <strong>{{ item[0] }}</strong>: {{ item[1] }} <br>
+                    {% if item[2] != '링크 없음' %}
+                    <a href="{{ item[2] }}" target="_blank">상품 보기</a>
+                    {% else %}
+                    링크 없음
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="result-box">
+            <h2>중고나라 결과</h2>
+            <ul>
+                {% for item in results_joongonara %}
+                <li>
+                    <img src="{{ item[3] }}" alt="{{ item[0] }}" width="100"><br>
+                    <strong>{{ item[0] }}</strong>: {{ item[1] }} <br>
+                    {% if item[2] != '링크 없음' %}
+                    <a href="{{ item[2] }}" target="_blank">상품 보기</a>
+                    {% else %}
+                    링크 없음
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="result-box">
+            <h2>후르츠페밀리 결과</h2>
+            <ul>
+                {% for item in results_fruitfamily %}
+                <li>
+                    <img src="{{ item[3] }}" alt="{{ item[0] }}" width="100"><br>
+                    <strong>{{ item[0] }}</strong>: {{ item[1] }} <br>
+                    {% if item[2] != '링크 없음' %}
+                    <a href="{{ item[2] }}" target="_blank">상품 보기</a>
+                    {% else %}
+                    링크 없음
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>
