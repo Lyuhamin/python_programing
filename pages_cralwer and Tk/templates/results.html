@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='results.css') }}">
 </head>
 <body>
-    <h1>검색 결과</h1>
+    <h1>정밀 검색 결과</h1>
 
     <!-- 낮은 가격순 버튼 -->
     <button type="button" class="price_btn" onclick="sortResults()">낮은 가격순</button>
@@ -47,11 +47,45 @@
         </div>
 
         <div class="result-box">
-            <h2>후르츠페밀리 결과</h2>
+            <h2>후르츠패밀리 결과</h2>
             <ul id="fruitfamily-results">
                 {% for item in results_fruitfamily %}
                 <li>
                     <img src="{{ item[3] }}" alt="{{ item[0] }}" width="100"><br>
+                    <strong>{{ item[0] }}</strong>: {{ item[1] }} <br>
+                    {% if item[2] != '링크 없음' %}
+                    <a href="{{ item[2] }}" target="_blank">상품 보기</a>
+                    {% else %}
+                    링크 없음
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="result-box">
+            <h2>알라딘 결과</h2>
+            <ul id="aladin-results">
+                {% for item in results_aladin %}
+                <li>
+                    
+                    <strong>{{ item[0] }}</strong>: {{ item[1] }} <br>
+                    {% if item[2] != '링크 없음' %}
+                    <a href="{{ item[2] }}" target="_blank">상품 보기</a>
+                    {% else %}
+                    링크 없음
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="result-box">
+            <h2>Yes24 결과</h2>
+            <ul id="yes24-results">
+                {% for item in results_yes24 %}
+                <li>
+                    
                     <strong>{{ item[0] }}</strong>: {{ item[1] }} <br>
                     {% if item[2] != '링크 없음' %}
                     <a href="{{ item[2] }}" target="_blank">상품 보기</a>
@@ -68,6 +102,8 @@
     <div id="hellomarket-data" style="display: none;">{{ results_hellomarket|tojson }}</div>
     <div id="joongonara-data" style="display: none;">{{ results_joongonara|tojson }}</div>
     <div id="fruitfamily-data" style="display: none;">{{ results_fruitfamily|tojson }}</div>
+    <div id="aladin-data" style="display: none;">{{ results_aladin|tojson }}</div>
+    <div id="yes24-data" style="display: none;">{{ results_yes24|tojson }}</div>
 
     <!-- 외부 JavaScript 파일 포함 -->
     <script src="{{ url_for('static', filename='results.js') }}"></script>

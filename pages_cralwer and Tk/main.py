@@ -1,29 +1,35 @@
-from tkinter import Tk
-from gui import SearchApp
-import multiprocessing
-import app
+from multiprocessing import Process
 import webbrowser
 import time
 
-def run_flask_app():
-    app.app.run(debug=True, use_reloader=False)
+def start_flask():
+    # app.py에서 정의한 Flask 애플리케이션 실행
+    import app
+    app.run_flask()
 
-def main():
-    # Flask 서버를 별도의 프로세스에서 실행
-    flask_process = multiprocessing.Process(target=run_flask_app)
-    flask_process.start()
+def start_tkinter():
+    # gui.py에서 정의한 Tkinter 애플리케이션 실행
+    import tkinter as tk
+    from gui import SearchApp
 
-    # 잠시 대기하여 Flask 서버가 시작될 시간을 줌
-    time.sleep(1)  # 필요에 따라 조정 가능
-
-    # 웹 브라우저에서 Flask 앱 열기
-    webbrowser.open("http://127.0.0.1:5000")
-
-    # Tkinter 애플리케이션 실행
-    root = Tk()
+    root = tk.Tk()
     app = SearchApp(root)
     root.protocol("WM_DELETE_WINDOW", app.on_closing)
     root.mainloop()
 
 if __name__ == "__main__":
-    main()
+    # Flask를 별도의 프로세스에서 실행
+    flask_process = Process(target=start_flask)
+    flask_process.start()
+
+    # Flask 서버가 시작될 시간을 대기 (필요에 따라 조정)
+    time.sleep(2)
+
+    # 웹 브라우저에서 Flask 앱 열기
+    webbrowser.open("http://127.0.0.1:5000")
+
+    # Tkinter 애플리케이션 실행
+    start_tkinter()
+
+    # 프로그램 종료 시 Flask 프로세스도 종료
+    flask_process.join()
